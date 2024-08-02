@@ -1,1 +1,13 @@
-<p>header works!</p>
+<mat-toolbar style="box-shadow: 1px 1px 5px blueviolet; height: 80px">
+   <img src="/images/Cashbook_logo.png" style="width: 80px; height: 80px">
+   <span style="color:blueviolet"><span style="font-size: 26px;">C</span>ashbook</span>
+   <span class="spacer"></span>
+   <button mat-button style="color:blueviolet" [routerLink]="'/home'" routerLinkActive="active">Home</button>
+   <button mat-button style="color:blueviolet">AboutUs</button>
+   <button mat-button style="color:blueviolet">Services</button>
+   <button mat-button style="color:blueviolet">ContactUs</button>
+   <span class="spacer"></span>
+   <button mat-stroked-button style="color:blueviolet" (click)="login()">Login</button>
+   <button mat-stroked-button style="color:blueviolet" (click)="register()">Register</button>
+</mat-toolbar>
+
