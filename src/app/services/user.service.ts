@@ -32,4 +32,8 @@ export class UserService {
     }
     return null;
   }
+
+  getUsers(){
+    return this.http.get<any>(`${this.url}/users`)
+  }
 }
