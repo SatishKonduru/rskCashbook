@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -30,6 +30,7 @@ export class NewBookComponent implements OnInit{
   user = inject(UserService)
   userId : any
   dialogRef = inject(MatDialogRef<NewBookComponent>)
+  emitter = new EventEmitter()
   ngOnInit(): void {
     this.bookForm = this.fb.group({
       name: ['', Validators.required]
@@ -53,6 +54,7 @@ export class NewBookComponent implements OnInit{
           next: (res: any) => {
             this.toastr.success(`" ${bookName} " Book Added Succesully.`, 'Success', globalProperties.toastrConfig)
             this.dialogRef.close()
+            this.emitter.emit()
           },
           error: (err: any) => {
             this.toastr.error(`No Book was Added.`, 'Failure', globalProperties.toastrConfig)

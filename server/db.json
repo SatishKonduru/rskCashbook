@@ -18,7 +18,15 @@
       "id": "b901",
       "username": "user",
       "email": "user@gmail.com",
-      "password": "user"
+      "password": "user",
+      "books": [
+        {
+          "bookTitle": "Book1"
+        },
+        {
+          "bookTitle": "Book2"
+        }
+      ]
     },
     {
       "id": "2170",
