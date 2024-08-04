@@ -5,9 +5,14 @@
       "username": "Satish",
       "email": "satish@gmail.com",
       "password": "Konduru",
-      "books": {
-        "title": "Daily Transactions"
-      }
+      "books": [
+        {
+          "bookTitle": "Daily Transactions"
+        },
+        {
+          "bookTitle": "Arunachalam Trip"
+        }
+      ]
     },
     {
       "id": "b901",

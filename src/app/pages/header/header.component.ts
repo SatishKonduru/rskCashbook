@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit{
     if(user){
       const userDetails = this._user.retrieveCredentials().username
       this.username.update(username => username = userDetails)
-      console.log("Logged username: ", userDetails)
+      // console.log("Logged username: ", userDetails)
     }
   }
   logout(){
