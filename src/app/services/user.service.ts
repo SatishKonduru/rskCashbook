@@ -36,4 +36,6 @@ export class UserService {
   getUsers(){
     return this.http.get<any>(`${this.url}/users`)
   }
+  
+  
 }

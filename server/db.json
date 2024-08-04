@@ -4,7 +4,10 @@
       "id": "1",
       "username": "Satish",
       "email": "satish@gmail.com",
-      "password": "Konduru"
+      "password": "Konduru",
+      "books": {
+        "title": "Daily Transactions"
+      }
     },
     {
       "id": "b901",
