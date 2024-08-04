@@ -40,5 +40,6 @@ export class HeaderComponent implements OnInit{
   logout(){
     sessionStorage.removeItem('userCredentials')
     this.username.update(u => u = '')
+    this.router.navigate(['/home'])
   }
 }
