@@ -6,16 +6,17 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { DashboardService } from '../../services/dashboard.service';
 import { UserService } from '../../services/user.service';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import {MatDialog, MatDialogConfig, MatDialogModule} from '@angular/material/dialog';
 import { NewBookComponent } from '../new-book/new-book.component';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatButtonModule, MatIconModule, MatDividerModule, RouterOutlet, MatDialogModule],
+  imports: [CommonModule, MatSidenavModule, MatButtonModule, MatIconModule, MatDividerModule, RouterOutlet, MatDialogModule, MatTooltipModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit{
   dialog = inject(MatDialog)
   user = inject(UserService)
  books: any = []
-
+  router = inject(Router)
   ngOnInit(): void {
     this.getBooks()
   }
@@ -60,4 +61,10 @@ export class DashboardComponent implements OnInit{
         }
       })
     }
+
+    viewBook(book: any){
+      this.router.navigate(['/viewBook'], {queryParams: {book: book.bookTitle}})
+    }
+
+
 }

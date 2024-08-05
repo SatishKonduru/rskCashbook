@@ -18,15 +18,19 @@
                     <table class="table table-responsive">
                         <thead>
                             <tr>
-                                <th scope="col">Book Name</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" style="color: chocolate; font-size: large;">Book Name</th>
+                                <th scope="col" style="color: chocolate; font-size: large;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @for(book of books; track book){
                                 <tr>
-                                    <td>{{book.bookTitle}}</td>
-                                    <td>Actions here</td>
+                                    <td style="color: blueviolet; font-size: large;">{{book.bookTitle}}</td>
+                                    <td>
+                                        <button mat-icon-button style="color: blueviolet;" (click)="viewBook(book)"><mat-icon matTooltip="View">visibility</mat-icon></button>
+                                        <button mat-icon-button style="color: blueviolet;"><mat-icon matTooltip="Edit"> edit</mat-icon></button>
+                                        <button mat-icon-button style="color: blueviolet;"><mat-icon matTooltip="Delete">delete</mat-icon></button>
+                                    </td>
                                 </tr>
                                 
                             }
