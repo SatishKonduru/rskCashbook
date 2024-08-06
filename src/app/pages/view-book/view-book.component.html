@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col">
+            <button mat-icon-button (click)="goBack()"><mat-icon>keyboard_backspace</mat-icon></button>
+            <span style="font-size: 18px;">Book: <span style="color:chocolate">{{bookName}}</span>
+            </span>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="outline">
+                <mat-label>Search:</mat-label>
+                <input matInput [(ngModel)]="searchKey">
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <button mat-flat-button style="background-color: green; color:white" (click)="toggleDrawer()">+ Cash In</button>
+            <button mat-flat-button style="background-color: brown; color:white">+ Cash Out</button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+</div>
+
+<div class="drawer-container" [ngClass]="{'open': isDrawerOpen}">
+    <div class="drawer-content">
+      <mat-toolbar>
+        Add Cash In Entry
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="toggleDrawer()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar>
+      <mat-divider></mat-divider>
+      <!-- Drawer content here -->
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <mat-icon style="background-color: green; color:#fff; border-radius: 100px;">add</mat-icon>Cash In
+            <div>
+                &#8377; 0/-
+            </div>
+        </div>
+        <div class="col">
+            <mat-icon style="background-color: brown; color:#fff; border-radius: 100px;">remove</mat-icon>Cash Out
+            <div>
+                &#8377; 0/-
+            </div>
+        </div>
+        <div class="col">
+            <mat-icon style="background-color: blue; color:#fff; border-radius: 100px;">check</mat-icon>Cash Out
+            <div>
+                &#8377; 0/-
+            </div>
+        </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
