@@ -9,6 +9,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Search:</mat-label>
                 <input matInput [(ngModel)]="searchKey">
+                <button mat-icon-button matSuffix><mat-icon>close</mat-icon></button>
             </mat-form-field>
         </div>
         <div class="col">
@@ -30,6 +31,69 @@
       </mat-toolbar>
       <mat-divider></mat-divider>
       <!-- Drawer content here -->
+       <div class="container mt-3">
+        <form [formGroup]="addFrom">
+           <div class="row col-12">
+                <div class="col-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date:</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>
+                            @if(addFrom.controls.date.touched && addFrom.controls.date.invalid){
+                                @if(addFrom.controls.date.errors?.required){
+                                    <span>Transaction Date is Required</span>
+                                }
+                            }
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Time:</mat-label>
+                        <input matInput [ngxTimepicker]="timePicker" formControlName="time">
+                        <ngx-material-timepicker #timePicker></ngx-material-timepicker>
+                        <mat-error>
+                            @if(addFrom.controls.time.touched && addFrom.controls.time.invalid){
+                                @if(addFrom.controls.time.errors?.required){
+                                    <span>Transaction Time is Required</span>
+                                }
+                            }
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+           </div>
+           <div class="row col-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Amount: </mat-label>
+                <input matInput formControlName="amount">
+                <mat-error>
+                    @if(addFrom.controls.amount.touched && addFrom.controls.amount.invalid){
+                        @if(addFrom.controls.amount.errors?.required){
+                            <span>Transaction Time is Required</span>
+                        }
+                    }
+                </mat-error>
+            </mat-form-field>
+           </div>
+           <div class="row col-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Description: </mat-label>
+                <input matInput formControlName="description">
+                <mat-error>
+                    @if(addFrom.controls.description.touched && addFrom.controls.description.invalid){
+                        @if(addFrom.controls.description.errors?.required){
+                            <span>Transaction Time is Required</span>
+                        }
+                    }
+                </mat-error>
+            </mat-form-field>
+           </div>
+           <button mat-flat-button [disabled]="!(addFrom.dirty && addFrom.valid)">Add</button>
+        </form>
+       </div>
     </div>
   </div>
   <div class="container mt-3">
@@ -37,19 +101,19 @@
         <div class="col">
             <mat-icon style="background-color: green; color:#fff; border-radius: 100px;">add</mat-icon>Cash In
             <div>
-                &#8377; 0/-
+                 <span style="font-size: 24px; color: green">&#8377; 0/-</span>
             </div>
         </div>
         <div class="col">
             <mat-icon style="background-color: brown; color:#fff; border-radius: 100px;">remove</mat-icon>Cash Out
             <div>
-                &#8377; 0/-
+                <span style="font-size: 24px; color: brown">&#8377; 0/-</span>
             </div>
         </div>
         <div class="col">
             <mat-icon style="background-color: blue; color:#fff; border-radius: 100px;">check</mat-icon>Cash Out
             <div>
-                &#8377; 0/-
+                <span style="font-size: 24px; color: blue">&#8377; 0/-</span>
             </div>
         </div>
     </div>
