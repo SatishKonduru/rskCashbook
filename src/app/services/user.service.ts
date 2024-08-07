@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { EncryptionService } from './encryption.service';
+import { switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,27 @@ export class UserService {
     return this.http.get<any>(`${this.url}/users`)
   }
   
-  
+  addCashIn(userId: any, bookName: any, data: any) {
+    return this.http.get(`${this.url}/users/${userId}`).pipe(
+      switchMap((user: any) => {
+        // Find the book and update it
+        const updatedBooks = user.books.map((book: any) => {
+          if (book.bookTitle === bookName) {
+            // Add new entry to the book
+            return {
+              ...book,
+              entries: [...(book.entries || []), data]
+            };
+          }
+          return book;
+        });
+
+        // Update the user with the modified books
+        return this.http.patch(`${this.url}/users/${userId}`, { books: updatedBooks });
+      })
+    );
+  }
 }
+
+  
+

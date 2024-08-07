@@ -7,7 +7,21 @@
       "password": "Konduru",
       "books": [
         {
-          "bookTitle": "Daily Transactions"
+          "bookTitle": "Daily Transactions",
+          "entries": [
+            {
+              "date": "07/08/2024",
+              "time": "08:46 PM",
+              "amount": "122",
+              "description": "sdfdsf"
+            },
+            {
+              "date": "07/08/2024",
+              "time": "08:46 PM",
+              "amount": "2000",
+              "description": "test"
+            }
+          ]
         },
         {
           "bookTitle": "Arunachalam Trip"

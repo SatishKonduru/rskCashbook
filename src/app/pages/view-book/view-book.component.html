@@ -116,7 +116,7 @@
                 </mat-error>
             </mat-form-field>
            </div>
-           <button mat-flat-button [disabled]="!(addFrom.dirty && addFrom.valid)">Add</button>
+           <button mat-flat-button [disabled]="!(addFrom.dirty && addFrom.valid)" (click)="addCashIn()">Add</button>
         </form>
        </div>
     </div>
