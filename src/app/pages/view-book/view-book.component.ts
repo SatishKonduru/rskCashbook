@@ -34,9 +34,10 @@ export class ViewBookComponent implements OnInit{
     this.activatedRoute.queryParams.subscribe(p => this.bookName = p['book'])
   }
   ngOnInit(): void {
+    const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })
     this.addFrom = this.fb.group({
       date: [new Date(), Validators.required],
-      time: ['', Validators.required],
+      time: [currentTime, Validators.required],
       amount: [0, Validators.required],
       description: ['', Validators.required]
     })
