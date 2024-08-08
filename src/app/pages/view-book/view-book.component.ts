@@ -38,8 +38,8 @@ export class ViewBookComponent implements OnInit{
   toastr = inject(ToastrService)
   title: any
   entryCode = 0
-  cashInMoney: any
-  cashOutMoney: any
+  cashInMoney:number
+  cashOutMoney: number
   constructor(private datePipe: DatePipe){
     this.activatedRoute.queryParams.subscribe(p => this.bookName = p['book'])
   }
@@ -77,10 +77,12 @@ getTotals(){
     next: (res: any) => {
       res.find(obj => {
         if(obj.username == userDetails.username && obj.password == userDetails.password){
+          console.log("Books: ", obj.books)
           obj.books.forEach((obj: any) => {
             if(obj.bookTitle === this.bookName){
               this.cashInMoney = obj.cashInTotal
               this.cashOutMoney = obj.cashOutTotal 
+             
             }
           } )     
         }

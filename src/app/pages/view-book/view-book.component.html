@@ -2,7 +2,7 @@
     <div class="row mt-3">
         <div class="col text-center">
             <button mat-mini-fab (click)="goBack()" style="background-color: brown;"><mat-icon style=" color:white" matTooltip="Back">keyboard_backspace</mat-icon></button>
-            <span style="font-size: 18px; margin-left: 20px;">Book: <span style="color:chocolate">{{bookName}}</span>
+            <span style="font-size: 18px; margin-left: 20px;">Book: <span style="color:chocolate; font-size: 40px;" class="book-name">{{bookName}}</span>
             </span>
         </div>
         <div class="col text-center">
@@ -24,19 +24,25 @@
         <div class="col">
             <mat-icon style="background-color: green; color:#fff; border-radius: 100px;">add</mat-icon>Cash In
             <div>
-                 <span style="font-size: 24px; color: green">&#8377;  {{cashInMoney}}/-</span>
+                 <span style="font-size: 24px; color: green">&#8377;  {{cashInMoney != null || undefined ? cashInMoney : 0}}/-</span>
             </div>
         </div>
         <div class="col">
             <mat-icon style="background-color: brown; color:#fff; border-radius: 100px;">remove</mat-icon>Cash Out
             <div>
-                <span style="font-size: 24px; color: brown">&#8377; {{cashOutMoney}}/-</span>
+                <span style="font-size: 24px; color: brown">&#8377; {{cashOutMoney != null || undefined ? cashOutMoney : 0}}/-</span>
             </div>
         </div>
         <div class="col">
             <mat-icon style="background-color: blue; color:#fff; border-radius: 100px;">check</mat-icon>Balance Amount
             <div>
-                <span style="font-size: 24px; color: blue">&#8377; {{cashInMoney - cashOutMoney}}/-</span>
+                @if(cashInMoney - cashOutMoney){
+                    <span style="font-size: 24px; color: blue">&#8377; {{cashInMoney - cashOutMoney}}/-</span>
+                }
+                @else {
+                    <span style="font-size: 24px; color: blue">&#8377; 0/-</span>  
+                }
+                
             </div>
         </div>
     </div>
