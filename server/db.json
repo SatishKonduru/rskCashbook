@@ -7,24 +7,58 @@
       "password": "Konduru",
       "books": [
         {
-          "bookTitle": "Daily Transactions",
-          "entries": [
-            {
-              "date": "07/08/2024",
-              "time": "08:46 PM",
-              "amount": "122",
-              "description": "sdfdsf"
-            },
-            {
-              "date": "07/08/2024",
-              "time": "08:46 PM",
-              "amount": "2000",
-              "description": "test"
-            }
-          ]
+          "bookTitle": "Daily Transactions"
         },
         {
-          "bookTitle": "Arunachalam Trip"
+          "bookTitle": "Arunachalam Trip",
+          "cashInEntries": [
+            {
+              "date": "08/08/2024",
+              "time": "10:24 AM",
+              "amount": "6000",
+              "description": "Initial Budget"
+            },
+            {
+              "date": "08/08/2024",
+              "time": "10:25 AM",
+              "amount": "4000",
+              "description": "Added Amount"
+            },
+            {
+              "date": "08/08/2024",
+              "time": "10:27 AM",
+              "amount": "5000",
+              "description": "New Money"
+            },
+            {
+              "date": "08/08/2024",
+              "time": "10:36 AM",
+              "amount": "5000",
+              "description": "Lasest Added"
+            }
+          ],
+          "cashInTotal": 20000,
+          "cashOutEntries": [
+            {
+              "date": "08/08/2024",
+              "time": "10:27 AM",
+              "amount": "100",
+              "description": "Auto"
+            },
+            {
+              "date": "08/08/2024",
+              "time": "10:28 AM",
+              "amount": "200",
+              "description": "Breakfast"
+            },
+            {
+              "date": "08/08/2024",
+              "time": "10:36 AM",
+              "amount": "700",
+              "description": "Thrua"
+            }
+          ],
+          "cashOutTotal": 1000
         }
       ]
     },

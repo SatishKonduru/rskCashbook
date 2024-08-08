@@ -13,8 +13,8 @@
             </mat-form-field>
         </div>
         <div class="col text-center">
-            <button mat-flat-button style="background-color: green; color:white" (click)="toggleDrawer()">+ Cash In</button>
-            <button mat-flat-button style="background-color: brown; color:white">+ Cash Out</button>
+            <button mat-flat-button style="background-color: green; color:white" (click)="toggleDrawerForCashIn()">+ Cash In</button>
+            <button mat-flat-button style="background-color: brown; color:white" (click)="toggleDrawerForCashOut()">+ Cash Out</button>
         </div>
     </div>
     <mat-divider></mat-divider>
@@ -24,19 +24,19 @@
         <div class="col">
             <mat-icon style="background-color: green; color:#fff; border-radius: 100px;">add</mat-icon>Cash In
             <div>
-                 <span style="font-size: 24px; color: green">&#8377;  0/-</span>
+                 <span style="font-size: 24px; color: green">&#8377;  {{cashInMoney}}/-</span>
             </div>
         </div>
         <div class="col">
             <mat-icon style="background-color: brown; color:#fff; border-radius: 100px;">remove</mat-icon>Cash Out
             <div>
-                <span style="font-size: 24px; color: brown">&#8377; 0/-</span>
+                <span style="font-size: 24px; color: brown">&#8377; {{cashOutMoney}}/-</span>
             </div>
         </div>
         <div class="col">
             <mat-icon style="background-color: blue; color:#fff; border-radius: 100px;">check</mat-icon>Cash Out
             <div>
-                <span style="font-size: 24px; color: blue">&#8377; 0/-</span>
+                <span style="font-size: 24px; color: blue">&#8377; {{cashInMoney - cashOutMoney}}/-</span>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 <div class="drawer-container" [ngClass]="{'open': isDrawerOpen}">
     <div class="drawer-content">
       <mat-toolbar>
-        Add Cash In Entry
+        {{this.title}}
         <span class="spacer"></span>
         <button mat-icon-button (click)="toggleDrawer()">
           <mat-icon>close</mat-icon>
@@ -55,7 +55,7 @@
       <mat-divider></mat-divider>
       <!-- Drawer content here -->
        <div class="container mt-3">
-        <form [formGroup]="addFrom">
+        <form [formGroup]="addForm">
            <div class="row col-12">
                 <div class="col-6 ">
                     <mat-form-field appearance="outline">
@@ -64,8 +64,8 @@
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error>
-                            @if(addFrom.controls.date.touched && addFrom.controls.date.invalid){
-                                @if(addFrom.controls.date.errors?.required){
+                            @if(addForm.controls.date.touched && addForm.controls.date.invalid){
+                                @if(addForm.controls.date.errors?.required){
                                     <span>Transaction Date is Required</span>
                                 }
                             }
@@ -79,8 +79,8 @@
                         <ngx-material-timepicker #timePicker></ngx-material-timepicker>
                         <mat-icon matSuffix >schedule</mat-icon>
                         <mat-error>
-                            @if(addFrom.controls.time.touched && addFrom.controls.time.invalid){
-                                @if(addFrom.controls.time.errors?.required){
+                            @if(addForm.controls.time.touched && addForm.controls.time.invalid){
+                                @if(addForm.controls.time.errors?.required){
                                     <span>Transaction Time is Required</span>
                                 }
                             }
@@ -95,8 +95,8 @@
                 <input matInput formControlName="amount">
                 <mat-icon matPrefix>currency_rupee</mat-icon>
                 <mat-error>
-                    @if(addFrom.controls.amount.touched && addFrom.controls.amount.invalid){
-                        @if(addFrom.controls.amount.errors?.required){
+                    @if(addForm.controls.amount.touched && addForm.controls.amount.invalid){
+                        @if(addForm.controls.amount.errors?.required){
                             <span>Transaction Amount is Required</span>
                         }
                     }
@@ -108,15 +108,21 @@
                 <mat-label>Description: </mat-label>
                 <input matInput formControlName="description">
                 <mat-error>
-                    @if(addFrom.controls.description.touched && addFrom.controls.description.invalid){
-                        @if(addFrom.controls.description.errors?.required){
+                    @if(addForm.controls.description.touched && addForm.controls.description.invalid){
+                        @if(addForm.controls.description.errors?.required){
                             <span>Description is Required</span>
                         }
                     }
                 </mat-error>
             </mat-form-field>
            </div>
-           <button mat-flat-button [disabled]="!(addFrom.dirty && addFrom.valid)" (click)="addCashIn()">Add</button>
+           @if(entryCode == 1){
+            <button mat-flat-button [disabled]="!(addForm.dirty && addForm.valid)" (click)="save()">Save</button>
+           }
+           @else(){
+            <button mat-flat-button [disabled]="!(addForm.dirty && addForm.valid)" (click)="save()">Save</button>
+           }
+           
         </form>
        </div>
     </div>

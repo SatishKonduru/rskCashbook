@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { EncryptionService } from './encryption.service';
-import { switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,17 +37,26 @@ export class UserService {
   getUsers(){
     return this.http.get<any>(`${this.url}/users`)
   }
+
   
-  addCashIn(userId: any, bookName: any, data: any) {
+  cashInEntry(userId: any, bookName: any, data: any): Observable<any> {
     return this.http.get(`${this.url}/users/${userId}`).pipe(
       switchMap((user: any) => {
         // Find the book and update it
         const updatedBooks = user.books.map((book: any) => {
           if (book.bookTitle === bookName) {
             // Add new entry to the book
-            return {
+            const updatedBook = {
               ...book,
-              entries: [...(book.entries || []), data]
+              cashInEntries: [...(book.cashInEntries || []), data]
+            };
+
+            // Calculate the new cashInTotal
+            const cashInTotal = (updatedBook.cashInEntries || []).reduce((sum: number, entry: any) => sum + parseFloat(entry.amount), 0);
+
+            return {
+              ...updatedBook,
+              cashInTotal: cashInTotal // Add the total to the book
             };
           }
           return book;
@@ -58,6 +67,36 @@ export class UserService {
       })
     );
   }
+
+  cashOutEntry(userId: any, bookName: any, data: any): Observable<any> {
+    return this.http.get(`${this.url}/users/${userId}`).pipe(
+      switchMap((user: any) => {
+        // Find the book and update it
+        const updatedBooks = user.books.map((book: any) => {
+          if (book.bookTitle === bookName) {
+            // Add new entry to the book
+            const updatedBook = {
+              ...book,
+              cashOutEntries: [...(book.cashOutEntries || []), data]
+            };
+
+            // Calculate the new cashInTotal
+            const cashOutTotal = (updatedBook.cashOutEntries || []).reduce((sum: number, entry: any) => sum + parseFloat(entry.amount), 0);
+
+            return {
+              ...updatedBook,
+              cashOutTotal: cashOutTotal // Add the total to the book
+            };
+          }
+          return book;
+        });
+
+        // Update the user with the modified books
+        return this.http.patch(`${this.url}/users/${userId}`, { books: updatedBooks });
+      })
+    );
+  }
+
 }
 
   

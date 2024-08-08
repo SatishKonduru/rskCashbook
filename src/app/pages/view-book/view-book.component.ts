@@ -31,31 +31,65 @@ export class ViewBookComponent implements OnInit{
   bookName: any
   router = inject(Router)
   searchKey: any = ''
-  addFrom : any = FormGroup
+  addForm : any = FormGroup
   fb = inject(FormBuilder)
   userService = inject(UserService)
   userId: any
   toastr = inject(ToastrService)
+  title: any
+  entryCode = 0
+  cashInMoney: any
+  cashOutMoney: any
   constructor(private datePipe: DatePipe){
     this.activatedRoute.queryParams.subscribe(p => this.bookName = p['book'])
   }
   ngOnInit(): void {
     const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })
-    this.addFrom = this.fb.group({
+    this.addForm = this.fb.group({
       date: [new Date(), Validators.required],
       time: [currentTime, Validators.required],
       amount: [0, Validators.required],
       description: ['', Validators.required]
     })
+    this.getTotals()
   }
   goBack(){
     this.router.navigate(['/dashboard'])
   }
   toggleDrawer(): void {
     this.isDrawerOpen = !this.isDrawerOpen;
+    this.resetForm()
   }
-async  addCashIn(){
-    const formData = this.addFrom.value
+  toggleDrawerForCashIn(){
+    this.isDrawerOpen = !this.isDrawerOpen;
+    this.title = 'Add Entry for Cash In'
+    this.entryCode = 1
+  }
+  toggleDrawerForCashOut(){
+    this.isDrawerOpen = !this.isDrawerOpen;
+    this.title = 'Add Entry for Cash Out'
+    this.entryCode = 2
+  }
+ 
+getTotals(){
+  let userDetails = this.userService.retrieveCredentials()
+  this.userService.getUsers().subscribe({
+    next: (res: any) => {
+      res.find(obj => {
+        if(obj.username == userDetails.username && obj.password == userDetails.password){
+          obj.books.forEach((obj: any) => {
+            if(obj.bookTitle === this.bookName){
+              this.cashInMoney = obj.cashInTotal
+              this.cashOutMoney = obj.cashOutTotal 
+            }
+          } )     
+        }
+      })
+    }
+  })
+}
+async  save(){
+    const formData = this.addForm.value
     const transactionDate  = this.datePipe.transform(formData.date,'dd/MM/YYYY')
     const data = {
       date: transactionDate, 
@@ -74,15 +108,47 @@ async  addCashIn(){
           }
         })
         console.log("User Id: ", this.userId)
-        this.userService.addCashIn(this.userId, this.bookName, data).subscribe({
-          next: () => {
-            this.toastr.success('Entry Inserted Successfully.','Success', globalProperties.toastrConfig)
-          }
-        })
+        
+        if(this.entryCode == 1){
+          this.userService.cashInEntry(this.userId, this.bookName, data).subscribe({
+            next: () => {
+              this.toastr.success('Entry Added Successfully.','Success', globalProperties.toastrConfig)
+              this.getTotals()
+              this.resetForm()
+              this.toggleDrawer()
+              
+            }
+            
+          })
+        }
+        if(this.entryCode == 2){
+          this.userService.cashOutEntry(this.userId, this.bookName, data).subscribe({
+            next: () => {
+              this.toastr.success('Entry Added Successfully.','Success', globalProperties.toastrConfig)
+              this.getTotals()
+              this.resetForm()
+              this.toggleDrawer()
+              
+            }
+            
+          })
+        }
+       
       },
       error: (err: any) => {
-        this.toastr.error('No Entry Saved.','Fail',globalProperties.toastrConfig)
+        this.toastr.error('No Entry Added.','Fail',globalProperties.toastrConfig)
       }
      }) 
+  }
+
+  resetForm(){
+    const initialTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    this.addForm.setValue({
+      date: new Date(),
+      time: initialTime,
+      amount: 0,
+      description: ''
+    });
   }
 }
