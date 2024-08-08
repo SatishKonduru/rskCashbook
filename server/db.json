@@ -62,9 +62,15 @@
               "time": "11:42 AM",
               "amount": "2500",
               "description": "Room Rent"
+            },
+            {
+              "date": "08/08/2024",
+              "time": "08:16 PM",
+              "amount": "600",
+              "description": "Dinner"
             }
           ],
-          "cashOutTotal": 3500
+          "cashOutTotal": 4100
         }
       ]
     },
