@@ -65,9 +65,21 @@
               "time": "10:47 AM",
               "amount": "2000",
               "description": "Adding Money"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "07:45 PM",
+              "amount": "500",
+              "description": "Added money"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "08:02 PM",
+              "amount": "500",
+              "description": "Bonus Amount"
             }
           ],
-          "cashInTotal": 27000,
+          "cashInTotal": 28000,
           "cashOutEntries": [
             {
               "date": "08/08/2024",
@@ -110,9 +122,21 @@
               "time": "10:47 AM",
               "amount": "250",
               "description": "Auto"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "07:45 PM",
+              "amount": "500",
+              "description": "For Kids"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "08:01 PM",
+              "amount": "50",
+              "description": "Tea"
             }
           ],
-          "cashOutTotal": 4550
+          "cashOutTotal": 5100
         },
         {
           "bookTitle": "Test",

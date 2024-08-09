@@ -182,13 +182,13 @@ async  save(){
       }
   })
   }
-  isCashIn(entry: any): boolean {
-    return entry.amount && entry.amount > 0; // Assuming positive amount for cash-in
-  }
+  // isCashIn(entry: any): boolean {
+  //   return entry.amount && entry.amount > 0; // Assuming positive amount for cash-in
+  // }
 
-  isCashOut(entry: any): boolean {
-    return entry.amount && entry.amount < 0; // Assuming negative amount for cash-out
-  }
+  // isCashOut(entry: any): boolean {
+  //   return entry.amount && entry.amount < 0; // Assuming negative amount for cash-out
+  // }
 
   get hasEntries(): boolean {
     return this.entries.data.length > 0;
