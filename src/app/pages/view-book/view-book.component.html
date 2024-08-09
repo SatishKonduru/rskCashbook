@@ -8,8 +8,8 @@
         <div class="col text-center">
             <mat-form-field appearance="outline">
                 <mat-label>Search:</mat-label>
-                <input matInput [(ngModel)]="searchKey">
-                <button mat-icon-button matSuffix><mat-icon>close</mat-icon></button>
+                <input matInput [(ngModel)]="searchKey" (keyup)="applyFilter($event.target.value)">
+                <button mat-icon-button matSuffix *ngIf="searchKey" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
             </mat-form-field>
         </div>
         <div class="col text-center">
@@ -133,4 +133,58 @@
        </div>
     </div>
   </div>
+  <!-- List of Entries -->
+  <!-- <div *ngFor="let entry of entries">
+    <div [ngClass]="{'cash-in': entry.type === 'cash-in', 'cash-out': entry.type === 'cash-out'}">
+      <span>{{ entry.date }} {{ entry.time }}: {{ entry.amount }} - {{ entry.description }}</span>
+    </div>
+  </div> -->
+  
+  <div class="container mt-3" >
+     @if(hasEntries){
+            <table mat-table [dataSource]="entries" class="mat-elevation-z8" >
+                <ng-container matColumnDef="date" >
+                  <th mat-header-cell *matHeaderCellDef> Date </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'cash-in': element.type === 'cash-in', 'cash-out': element.type === 'cash-out'}"> {{element.date}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="time">
+                  <th mat-header-cell *matHeaderCellDef> Time </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'cash-in': element.type === 'cash-in', 'cash-out': element.type === 'cash-out'}"> {{element.time}} </td>
+                </ng-container>
+          
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef> Description </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'cash-in': element.type === 'cash-in', 'cash-out': element.type === 'cash-out'}"> {{element.description}} </td>
+                </ng-container>
+          
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef> Amount </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'cash-in': element.type === 'cash-in', 'cash-out': element.type === 'cash-out'}" > &#8377; {{element.amount}} /-</td>
+                </ng-container>
+          
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef> Actions </th>
+                  <td mat-cell *matCellDef="let element" > <mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon> </td>
+                  
+                </ng-container>
+          
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            
+            
+            <mat-paginator  [pageSizeOptions]="[10, 50, 100]" 
+                            [pageSize]="5"
+                            showFirstLastButtons style="margin-top: 20px;">
+            </mat-paginator>
+        }
+        
+    
+    
+   
+  </div>
+  
+
  

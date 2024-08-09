@@ -7,7 +7,25 @@
       "password": "Konduru",
       "books": [
         {
-          "bookTitle": "Daily Transactions"
+          "bookTitle": "Daily Transactions",
+          "cashInEntries": [
+            {
+              "date": "09/08/2024",
+              "time": "10:17 AM",
+              "amount": "30000",
+              "description": "Salary"
+            }
+          ],
+          "cashInTotal": 30000,
+          "cashOutEntries": [
+            {
+              "date": "09/08/2024",
+              "time": "10:19 AM",
+              "amount": "100",
+              "description": "Thrua"
+            }
+          ],
+          "cashOutTotal": 100
         },
         {
           "bookTitle": "Arunachalam Trip",
@@ -35,9 +53,21 @@
               "time": "10:36 AM",
               "amount": "5000",
               "description": "Lasest Added"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "10:08 AM",
+              "amount": "5000",
+              "description": "Newly Added Money"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "10:47 AM",
+              "amount": "2000",
+              "description": "Adding Money"
             }
           ],
-          "cashInTotal": 20000,
+          "cashInTotal": 27000,
           "cashOutEntries": [
             {
               "date": "08/08/2024",
@@ -68,9 +98,33 @@
               "time": "08:16 PM",
               "amount": "600",
               "description": "Dinner"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "10:09 AM",
+              "amount": "200",
+              "description": "Darshanam Tickets"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "10:47 AM",
+              "amount": "250",
+              "description": "Auto"
             }
           ],
-          "cashOutTotal": 4100
+          "cashOutTotal": 4550
+        },
+        {
+          "bookTitle": "Test",
+          "cashInEntries": [
+            {
+              "date": "09/08/2024",
+              "time": "10:48 AM",
+              "amount": "3000",
+              "description": "Budjet"
+            }
+          ],
+          "cashInTotal": 3000
         }
       ]
     },
@@ -93,6 +147,70 @@
       "username": "testUser",
       "email": "testUser@gmail.com",
       "password": "testUser"
+    },
+    {
+      "id": "c09e",
+      "username": "Konduru",
+      "email": "Satish@gmail.com",
+      "password": "Satish",
+      "books": [
+        {
+          "bookTitle": "Test",
+          "cashInEntries": [
+            {
+              "date": "09/08/2024",
+              "time": "10:44 AM",
+              "amount": "20000",
+              "description": "Budjet"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "10:44 AM",
+              "amount": "20000",
+              "description": "Budjet"
+            }
+          ],
+          "cashInTotal": 40000
+        },
+        {
+          "bookTitle": "Test 2"
+        }
+      ]
+    },
+    {
+      "id": "4d12",
+      "username": "test",
+      "email": "test@gmail.com",
+      "password": "test",
+      "books": [
+        {
+          "bookTitle": "myBook",
+          "cashInEntries": [
+            {
+              "date": "09/08/2024",
+              "time": "10:49 AM",
+              "amount": "50000",
+              "description": "Salary"
+            },
+            {
+              "date": "09/08/2024",
+              "time": "10:49 AM",
+              "amount": "50000",
+              "description": "Salary"
+            }
+          ],
+          "cashInTotal": 100000,
+          "cashOutEntries": [
+            {
+              "date": "09/08/2024",
+              "time": "10:50 AM",
+              "amount": "10000",
+              "description": "rent"
+            }
+          ],
+          "cashOutTotal": 10000
+        }
+      ]
     }
   ]
 }

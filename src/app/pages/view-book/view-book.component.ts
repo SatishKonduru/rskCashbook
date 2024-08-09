@@ -15,11 +15,14 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { globalProperties } from '../../shared/globalProperties';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-view-book',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, MatFormFieldModule,MatInputModule, FormsModule, MatSidenavModule, MatDividerModule, MatToolbarModule, ReactiveFormsModule, MatDatepickerModule, MatCalendar, NgxMaterialTimepickerModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, MatFormFieldModule,MatInputModule, FormsModule, MatSidenavModule, MatDividerModule, MatToolbarModule, ReactiveFormsModule, MatDatepickerModule, MatCalendar, NgxMaterialTimepickerModule, MatTableModule, MatPaginatorModule, MatProgressSpinnerModule],
   templateUrl: './view-book.component.html',
   styleUrl: './view-book.component.css',
   preserveWhitespaces: true,
@@ -40,6 +43,9 @@ export class ViewBookComponent implements OnInit{
   entryCode = 0
   cashInMoney:number
   cashOutMoney: number
+  entries : any
+  displayedColumns: string[] = ['date','time','description','amount','actions']
+  @ViewChild(MatPaginator) paginator : MatPaginator
   constructor(private datePipe: DatePipe){
     this.activatedRoute.queryParams.subscribe(p => this.bookName = p['book'])
   }
@@ -52,6 +58,7 @@ export class ViewBookComponent implements OnInit{
       description: ['', Validators.required]
     })
     this.getTotals()
+    this.getEntriesTable()
   }
   goBack(){
     this.router.navigate(['/dashboard'])
@@ -82,8 +89,7 @@ getTotals(){
             if(obj.bookTitle === this.bookName){
               this.cashInMoney = obj.cashInTotal
               this.cashOutMoney = obj.cashOutTotal 
-             
-            }
+             }
           } )     
         }
       })
@@ -116,6 +122,7 @@ async  save(){
             next: () => {
               this.toastr.success('Entry Added Successfully.','Success', globalProperties.toastrConfig)
               this.getTotals()
+              this.getEntriesTable()
               this.resetForm()
               this.toggleDrawer()
               
@@ -128,6 +135,7 @@ async  save(){
             next: () => {
               this.toastr.success('Entry Added Successfully.','Success', globalProperties.toastrConfig)
               this.getTotals()
+              this.getEntriesTable()
               this.resetForm()
               this.toggleDrawer()
               
@@ -152,5 +160,47 @@ async  save(){
       amount: 0,
       description: ''
     });
+  }
+
+  getEntriesTable(){
+    let userDetails = this.userService.retrieveCredentials()
+    this.userService.getUsers().subscribe({
+      next: (res: any) => {
+         res.find(obj => {
+          if(obj.username == userDetails.username && obj.password == userDetails.password){
+            this.userId= obj.id 
+          }
+        })
+        console.log("User Id: ", this.userId)
+        this.userService.entriesTable(this.userId, this.bookName).subscribe({
+          next: (entries: any[]) => {
+            this.entries = new MatTableDataSource(entries);
+            this.entries.paginator = this.paginator
+          }
+
+        })
+      }
+  })
+  }
+  isCashIn(entry: any): boolean {
+    return entry.amount && entry.amount > 0; // Assuming positive amount for cash-in
+  }
+
+  isCashOut(entry: any): boolean {
+    return entry.amount && entry.amount < 0; // Assuming negative amount for cash-out
+  }
+
+  get hasEntries(): boolean {
+    return this.entries.data.length > 0;
+  }
+  ngAfterViewInit(){
+    this.getEntriesTable()
+  }
+  applyFilter(value: any){
+    this.entries.filter  = value.trim().toLowerCase()
+  }
+  onSearchClear(){
+    this.searchKey = ''
+    this.applyFilter('')
   }
 }

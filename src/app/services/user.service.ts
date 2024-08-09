@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { EncryptionService } from './encryption.service';
-import { Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +97,35 @@ export class UserService {
     );
   }
 
+  entriesTable(userId: any, bookName: any) {
+    return this.http.get(`${this.url}/users/${userId}`).pipe(
+      map((user: any) => {
+        const book = user.books.find((b: any) => b.bookTitle === bookName);
+        if (book) {
+          const cashInEntries = book.cashInEntries || [];
+          const cashOutEntries = book.cashOutEntries || [];
+          const combinedEntries = [...cashInEntries, ...cashOutEntries];
+
+          combinedEntries.sort((a: any, b: any) => {
+            const dateTimeA = this.parseDateTime(a.date, a.time);
+            const dateTimeB = this.parseDateTime(b.date, b.time);
+            return dateTimeB.getTime() - dateTimeA.getTime();
+          });
+
+          // Add a type property to distinguish entries
+          return combinedEntries.map(entry => ({
+            ...entry,
+            type: cashInEntries.includes(entry) ? 'cash-in' : 'cash-out'
+          }));
+        }
+        return [];
+      })
+    );
+  }
+
+  parseDateTime(date: string, time: string): Date {
+    return new Date(`${date} ${time}`);
+  }
 }
 
   
