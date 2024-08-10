@@ -18,6 +18,8 @@ import { globalProperties } from '../../shared/globalProperties';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EditTransactionComponent } from '../edit-transaction/edit-transaction.component';
 
 @Component({
   selector: 'app-view-book',
@@ -44,6 +46,7 @@ export class ViewBookComponent implements OnInit{
   cashInMoney:number
   cashOutMoney: number
   entries : any
+  dialog = inject(MatDialog)
   displayedColumns: string[] = ['date','time','description','amount','actions']
   @ViewChild(MatPaginator) paginator : MatPaginator
   constructor(private datePipe: DatePipe){
@@ -202,5 +205,17 @@ async  save(){
   onSearchClear(){
     this.searchKey = ''
     this.applyFilter('')
+  }
+
+  onEdit(data:any){
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.width = '800px'
+    dialogConfig.disableClose = true
+    dialogConfig.autoFocus = true
+    dialogConfig.hasBackdrop = true
+    dialogConfig.data = {
+      data: data
+    }
+    const dialogRef = this.dialog.open(EditTransactionComponent, dialogConfig)
   }
 }

@@ -166,8 +166,8 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef> Actions </th>
                   <td mat-cell *matCellDef="let element" > 
-                    <mat-icon matTooltip="Edit" style="color: green">edit</mat-icon> 
-                    <mat-icon matTooltip="Delete" style="color: brown">delete</mat-icon> </td>
+                    <mat-icon matTooltip="Edit" style="color: green; cursor: pointer;" (click)="onEdit(element)">edit</mat-icon> 
+                    <mat-icon matTooltip="Delete" style="color: brown;cursor: pointer;">delete</mat-icon> </td>
                   
                 </ng-container>
           
