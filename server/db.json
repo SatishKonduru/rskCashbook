@@ -8,24 +8,10 @@
       "books": [
         {
           "bookTitle": "Daily Transactions",
-          "cashInEntries": [
-            {
-              "date": "09/08/2024",
-              "time": "10:17 AM",
-              "amount": "30000",
-              "description": "Salary"
-            }
-          ],
-          "cashInTotal": 30000,
-          "cashOutEntries": [
-            {
-              "date": "09/08/2024",
-              "time": "10:19 AM",
-              "amount": "100",
-              "description": "Thrua"
-            }
-          ],
-          "cashOutTotal": 100
+          "cashInEntries": [],
+          "cashInTotal": 0,
+          "cashOutEntries": [],
+          "cashOutTotal": 0
         },
         {
           "bookTitle": "Arunachalam Trip",

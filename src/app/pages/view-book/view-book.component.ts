@@ -101,7 +101,7 @@ getTotals(){
 }
 async  save(){
     const formData = this.addForm.value
-    const transactionDate  = this.datePipe.transform(formData.date,'dd/MM/YYYY')
+    const transactionDate  = this.datePipe.transform(formData.date,'MM/dd/YYYY')
     const data = {
       date: transactionDate, 
       time: formData.time,
@@ -194,7 +194,7 @@ async  save(){
   // }
 
   get hasEntries(): boolean {
-    return this.entries.data.length > 0;
+    return this.entries?.data.length > 0;
   }
   ngAfterViewInit(){
     this.getEntriesTable()
@@ -213,9 +213,28 @@ async  save(){
     dialogConfig.disableClose = true
     dialogConfig.autoFocus = true
     dialogConfig.hasBackdrop = true
-    dialogConfig.data = {
-      data: data
+   dialogConfig.data = {
+      data: data,
+      userId: this.userId,
+      bookName: this.bookName
     }
     const dialogRef = this.dialog.open(EditTransactionComponent, dialogConfig)
+    dialogRef.componentInstance.emitter.subscribe({
+      next: () => {
+        this.getEntriesTable()
+        this.getTotals()
+      }
+    })
+  }
+  onDelete(data: any){
+    console.log("Deleting Transaction: ", data)
+    // userId: any, bookName: any, entryType: 'cashIn' | 'cashOut', date: string, time: string
+    this.userService.deleteEntry(this.userId,this.bookName, data.type, data.date, data.time).subscribe({
+      next: () => {
+        this.toastr.success('Transaction Deteled Successfully','Success', globalProperties.toastrConfig)
+        this.getEntriesTable()
+        this.getTotals()
+      }
+    })
   }
 }

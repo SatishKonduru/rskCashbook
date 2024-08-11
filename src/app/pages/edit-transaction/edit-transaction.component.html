@@ -1,19 +1,20 @@
-<div cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+<!-- <div cdkDrag cdkDragRootElement=".cdk-overlay-pane"> -->
     <mat-dialog-content style="padding: 0 " class="container-fluid">
         <mat-toolbar>
             Edit Transaction
             <span class="spacer"></span>
             <button mat-icon-button mat-dialog-close=""><mat-icon>close</mat-icon></button>
         </mat-toolbar>
-        <div class="container">
+        <mat-divider></mat-divider>
+        <div class="container mt-3">
             <form [formGroup]="editForm">
                 <div class="row">
                     <div class="d-flex col-12">
-                        <div class="col-6">
+                        <div class="col-5">
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="date">
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <input matInput [matDatepicker]="picker" formControlName="date" readonly>
+                               
                                 <mat-datepicker #picker></mat-datepicker>
                                 <mat-error>
                                     @if(editForm.controls.date.touched && editForm.controls.date.invalid){
@@ -24,10 +25,10 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 " style="margin-left: 20px;">
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Time:</mat-label>
-                                <input matInput formControlName="time">
+                                <input matInput formControlName="time" readonly>
                                 <mat-icon matIconSuffix>schedule</mat-icon>
                             </mat-form-field>
                         </div>
@@ -50,8 +51,12 @@
                     </div>
                 </div>
             </form>
-            
+            <mat-dialog-actions class="d-flex; justify-content-center">
+                <button mat-button mat-dialog-close>Cancel</button>
+                <button mat-flat-button (click)="updateTransaction()">Update</button>
+               
+            </mat-dialog-actions>
         </div>
     </mat-dialog-content>
-</div>
+<!-- </div> -->
 
